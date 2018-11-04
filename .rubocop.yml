@@ -2,6 +2,8 @@ AllCops:
   DisplayCopNames: true
   TargetRubyVersion: 2.3.3
 
+Style/EndOfLine:
+  EnforcedStyle: lf
 Metrics/LineLength:
   Max: 120
 Metrics/AbcSize:
