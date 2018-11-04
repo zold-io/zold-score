@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    zold (0.0.0)
+    zold-score (0.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -119,7 +119,7 @@ DEPENDENCIES
   rspec-rails (~> 3)
   rubocop (= 0.58.1)
   rubocop-rspec (~> 1)
-  zold!
+  zold-score!
 
 BUNDLED WITH
    1.16.2
