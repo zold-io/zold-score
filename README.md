@@ -8,9 +8,9 @@
 [![We recommend RubyMine](http://www.elegantobjects.org/rubymine.svg)](https://www.jetbrains.com/ruby/)
 
 [![Build Status](https://travis-ci.org/zold-io/zold-score.svg)](https://travis-ci.org/zold-io/zold-score)
-[![Build status](https://ci.appveyor.com/api/projects/status/15ola3lb03opv14m?svg=true)](https://ci.appveyor.com/project/yegor256/zold-wcn4o)
+[![Build status](https://ci.appveyor.com/api/projects/status/f4ct91inx6nfb5eg?svg=true)](https://ci.appveyor.com/project/yegor256/zold-score)
 [![PDD status](http://www.0pdd.com/svg?name=zold-io/zold-score)](http://www.0pdd.com/p?name=zold-io/zold-score)
-[![Gem Version](https://badge.fury.io/rb/zold.svg)](http://badge.fury.io/rb/zold)
+[![Gem Version](https://badge.fury.io/rb/zold-score.svg)](http://badge.fury.io/rb/zold-score)
 [![Test Coverage](https://img.shields.io/codecov/c/github/zold-io/zold-score.svg)](https://codecov.io/github/zold-io/zold-score?branch=master)
 
 Here is the [White Paper](https://papers.zold.io/wp.pdf).
