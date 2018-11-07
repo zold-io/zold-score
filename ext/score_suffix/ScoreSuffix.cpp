@@ -19,9 +19,7 @@
 // SOFTWARE.
 
 #include <array>
-#include <iostream>
 #include <random>
-#include <sstream>
 #include <vector>
 #include <openssl/sha.h>
 #include <ruby.h>
