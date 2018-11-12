@@ -21,6 +21,27 @@ The license is [MIT](https://github.com/zold-io/zold-score/blob/master/LICENSE.t
 
 This small Ruby Gem calculates the score for Zold nodes.
 
+To calculate a new Score you create an object first:
+
+```ruby
+score = Zold::Score.new(
+  host: 'example.com',
+  port: 4096,
+  invoice: 'MYPREFIX@ffffffffffffffff',
+  strength: 6
+)
+```
+
+This score has zero value and the strength of six. Then you just ask it to calculate the next score:
+
+```ruby
+n = score.next
+```
+
+That's it.
+
+This project is actively used in our [main Ruby repo](https://github.com/zold-io/zold).
+
 # How to contribute
 
 Read [these guidelines](https://www.yegor256.com/2014/04/15/github-guidelines.html).
