@@ -83,6 +83,13 @@ class TestScore < Minitest::Test
     assert_equal(999, score.port)
   end
 
+  def test_parses_broken_text
+    ex = assert_raises do
+      Zold::Score.parse('some garbage')
+    end
+    assert(ex.message.include?('Invalid score'), ex)
+  end
+
   def test_prints_and_parses_text
     time = Time.now
     score = Zold::Score.parse_text(

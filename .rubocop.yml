@@ -11,7 +11,7 @@ Metrics/AbcSize:
 Metrics/MethodLength:
   Max: 25
 Metrics/ClassLength:
-  Max: 150
+  Max: 180
 Metrics/ParameterLists:
   Max: 7
 Layout/AlignParameters:
