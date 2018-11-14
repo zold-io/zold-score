@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 require 'openssl'
+require 'score_suffix/score_suffix'
 require 'time'
 
 # Zold score.
@@ -188,23 +189,17 @@ module Zold
     # on the CPU power and the <tt>strength</tt> of the current score.
     def next
       raise 'This score is not valid' unless valid?
-      idx = 0
-      loop do
-        suffix = idx.to_s(16)
-        score = Score.new(
-          time: @time, host: @host, port: @port,
-          invoice: @invoice, suffixes: @suffixes + [suffix],
-          strength: @strength
+      if expired?
+        return Score.new(
+          time: Time.now, host: @host, port: @port, invoice: @invoice,
+          suffixes: [], strength: @strength
         )
-        return score if score.valid?
-        if score.expired?
-          return Score.new(
-            time: Time.now, host: @host, port: @port, invoice: @invoice,
-            suffixes: [], strength: @strength
-          )
-        end
-        idx += 1
       end
+      suffix = ScoreSuffix.new(suffixes.empty? ? prefix : hash, @strength)
+      Score.new(
+        time: @time, host: @host, port: @port, invoice: @invoice,
+        suffixes: @suffixes + [suffix.value], strength: @strength
+      )
     end
 
     # The age of the score in seconds.

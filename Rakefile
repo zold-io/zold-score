@@ -33,7 +33,12 @@ def version
   Gem::Specification.load(Dir['*.gemspec'].first).version
 end
 
-task default: %i[clean test rubocop copyright]
+task default: %i[clean compile test rubocop copyright]
+
+require 'rake/extensiontask'
+Rake::ExtensionTask.new 'score_suffix' do |ext|
+  ext.lib_dir = 'lib/score_suffix'
+end
 
 require 'rake/testtask'
 desc 'Run all unit tests'
