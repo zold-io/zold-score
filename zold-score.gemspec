@@ -34,16 +34,16 @@ Gem::Specification.new do |s|
   s.authors = ['Yegor Bugayenko']
   s.email = 'yegor256@gmail.com'
   s.homepage = 'http://github.com/zold-io/zold-score'
-  s.files = `git ls-files`.split($RS)
+  s.files = `git ls-files`.split($RS) + ['lib/score_suffix/score_suffix.bundle']
   s.executables = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.test_files = s.files.grep(%r{^(test|features)/})
   s.rdoc_options = ['--charset=UTF-8']
   s.extra_rdoc_files = ['README.md', 'LICENSE.txt']
-  s.add_development_dependency 'codecov', '~>0'
-  s.add_development_dependency 'minitest', '~>5'
-  s.add_development_dependency 'rake-compiler', '~>1.0.4'
-  s.add_development_dependency 'rdoc', '~>4'
-  s.add_development_dependency 'rspec-rails', '~>3'
+  s.add_development_dependency 'codecov', '0.1.14'
+  s.add_development_dependency 'minitest', '5.11.3'
+  s.add_development_dependency 'rake-compiler', '1.0.4'
+  s.add_development_dependency 'rdoc', '4.3.0'
+  s.add_development_dependency 'rspec-rails', '3.8.1'
   s.add_development_dependency 'rubocop', '0.58.1'
-  s.add_development_dependency 'rubocop-rspec', '~>1'
+  s.add_development_dependency 'rubocop-rspec', '1.30.0'
 end
