@@ -24,7 +24,7 @@ require 'mkmf'
 
 # rubocop:disable Style/GlobalVars
 $warnflags = ''
-$CXXFLAGS << ' -std=c++11'
+$CXXFLAGS << ' -std=c++11 -Wno-deprecated-register'
 $CXXFLAGS.gsub!(/-Wimplicit-int/, '')
 $CXXFLAGS.gsub!(/-Wdeclaration-after-statement/, '')
 $CXXFLAGS.gsub!(/-Wimplicit-function-declaration/, '')
