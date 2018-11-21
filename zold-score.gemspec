@@ -45,6 +45,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake-compiler', '1.0.4'
   s.add_development_dependency 'rdoc', '4.3.0'
   s.add_development_dependency 'rspec-rails', '3.8.1'
-  s.add_development_dependency 'rubocop', '0.58.1'
+  s.add_development_dependency 'rubocop', '0.60.0'
   s.add_development_dependency 'rubocop-rspec', '1.30.0'
 end
