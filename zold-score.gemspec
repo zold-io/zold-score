@@ -34,7 +34,8 @@ Gem::Specification.new do |s|
   s.authors = ['Yegor Bugayenko']
   s.email = 'yegor256@gmail.com'
   s.homepage = 'http://github.com/zold-io/zold-score'
-  s.files = (`git ls-files`.split($RS) + Dir.glob('lib/**/*').reject { |f| File.directory?(f) }).uniq
+  s.files = `git ls-files`.split($RS)
+  s.extensions = %w[ext/score_suffix/extconf.rb]
   s.executables = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.test_files = s.files.grep(%r{^(test|features)/})
   s.rdoc_options = ['--charset=UTF-8']
