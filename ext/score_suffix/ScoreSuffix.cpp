@@ -23,8 +23,16 @@
 #include <vector>
 #include <openssl/sha.h>
 #include <ruby.h>
+#include <ruby/thread.h>
 
 using namespace std;
+
+struct index_params {
+	string prefix;
+	int strength;
+	string nonce;
+	bool keep_going;
+};
 
 static
 array<uint8_t, SHA256_DIGEST_LENGTH> sha256(const string &string)
@@ -73,15 +81,25 @@ string create_nonce(uint64_t i)
 }
 
 static
-string index(const string &prefix, int strength)
+void *index(void *arg)
 {
+	index_params *params = static_cast<index_params *>(arg);
 	mt19937_64 random(uint64_t(time(nullptr)));
-	for (uint64_t i = random(); ; i++) {
-		const auto hash = sha256(prefix + " " + create_nonce(i));
-		if (check_hash(hash, strength)) {
-			return create_nonce(i);
+	for (uint64_t i = random(); params->keep_going; i++) {
+		const auto hash = sha256(params->prefix + " " + create_nonce(i));
+		if (check_hash(hash, params->strength)) {
+			params->nonce = create_nonce(i);
+			break;
 		}
 	}
+	return nullptr;
+}
+
+static
+void unblocking_func(void *arg)
+{
+	index_params *params = static_cast<index_params *>(arg);
+	params->keep_going = false;
 }
 
 static
@@ -96,10 +114,14 @@ static
 VALUE ScoreSuffix_value(VALUE self)
 {
 	auto prefix_value = rb_iv_get(self, "@prefix");
-	const string prefix = StringValuePtr(prefix_value);
-	const int strength = NUM2INT(rb_iv_get(self, "@strength"));
-	const auto nonce = index(prefix, strength);
-	return rb_str_new2(nonce.c_str());
+	index_params params = {
+		StringValuePtr(prefix_value),
+		NUM2INT(rb_iv_get(self, "@strength")),
+		"",
+		true
+	};
+	rb_thread_call_without_gvl(index, &params, unblocking_func, &params);
+	return rb_str_new2(params.nonce.c_str());
 }
 
 extern "C"

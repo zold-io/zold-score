@@ -179,11 +179,7 @@ class TestScore < Minitest::Test
     assert_equal('e04ab4e69f86aa17be1316a52148e7bc3187c6d3df581d885a862d8850000000', score.hash)
   end
 
-  # @todo #11:30min This test is skipped because it doesn't work. The execution
-  #  of the C++ code simply doesn't react to the "thread.kill" command and keeps
-  #  running. We should find a way to spot that signal and stop the execution.
   def test_lets_the_thread_to_die
-    skip
     score = Zold::Score.new(host: 'localhost', invoice: 'NOPREFIX@ffffffffffffffff', strength: 30)
     thread = Thread.start do
       score.next
