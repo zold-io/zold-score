@@ -42,6 +42,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ['README.md', 'LICENSE.txt']
   s.add_development_dependency 'codecov', '0.1.14'
   s.add_development_dependency 'minitest', '5.11.3'
+  s.add_development_dependency 'minitest-hooks', '1.5.0'
   s.add_development_dependency 'rake-compiler', '1.0.4'
   s.add_development_dependency 'rdoc', '4.3.0'
   s.add_development_dependency 'rspec-rails', '3.8.1'

@@ -21,7 +21,9 @@
 # SOFTWARE.
 
 require 'minitest/autorun'
+require 'minitest/hooks/test'
 require 'tmpdir'
+require 'timeout'
 require 'time'
 require_relative '../../lib/zold/score'
 
@@ -30,6 +32,18 @@ require_relative '../../lib/zold/score'
 # Copyright:: Copyright (c) 2018 Yegor Bugayenko
 # License:: MIT
 class TestScore < Minitest::Test
+  include Minitest::Hooks
+
+  # We need this in order to make sure any test is faster than a minute. This
+  # should help spotting tests that hang out sometimes. The number of seconds
+  # to wait can be increased, but try to make it as little as possible,
+  # in order to catch problems ealier.
+  def around
+    Timeout.timeout(10) do
+      super
+    end
+  end
+
   def test_reduces_itself
     score = Zold::Score.new(
       time: Time.parse('2017-07-19T21:24:51Z'),
@@ -163,5 +177,19 @@ class TestScore < Minitest::Test
       invoice: 'THdonv1E@abcdabcdabcdabcd', suffixes: %w[3a934b 1421217]
     )
     assert_equal('e04ab4e69f86aa17be1316a52148e7bc3187c6d3df581d885a862d8850000000', score.hash)
+  end
+
+  # @todo #11:30min This test is skipped because it doesn't work. The execution
+  #  of the C++ code simply doesn't react to the "thread.kill" command and keeps
+  #  running. We should find a way to spot that signal and stop the execution.
+  def test_lets_the_thread_to_die
+    skip
+    score = Zold::Score.new(host: 'localhost', invoice: 'NOPREFIX@ffffffffffffffff', strength: 30)
+    thread = Thread.start do
+      score.next
+    end
+    sleep(0.1)
+    thread.kill
+    thread.join
   end
 end

@@ -61,7 +61,6 @@ string create_nonce(uint64_t i)
 		"0123456789"
 		"abcdefghijklmnopqrstuvwxyz"
 		"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
 	string rv;
 	for (int l = 0; l < 6; l++) {  // Cut to 6 sym
 		rv += chars[i % chars.size()];
@@ -77,7 +76,6 @@ static
 string index(const string &prefix, int strength)
 {
 	mt19937_64 random(uint64_t(time(nullptr)));
-
 	for (uint64_t i = random(); ; i++) {
 		const auto hash = sha256(prefix + " " + create_nonce(i));
 		if (check_hash(hash, strength)) {
