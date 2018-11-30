@@ -41,8 +41,12 @@ require 'time'
 module Zold
   # Score
   class Score
-    # Default strength for the entire system, in production mode.
-    STRENGTH = 6
+    # Default strength for the entire system, in production mode. The larger
+    # the number, the more difficult it is to find the next score for
+    # a node. If the number if too small, the values of the score will be
+    # big and the amount of data to be transferred from node to node will
+    # increase. The number is set empirically.
+    STRENGTH = 7
 
     attr_reader :time, :host, :port, :invoice, :suffixes, :strength, :created
 
