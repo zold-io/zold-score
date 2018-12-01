@@ -44,13 +44,22 @@ class TestScore < Minitest::Test
     end
   end
 
+  # Reduces suffixes list
+  #
   def test_reduces_itself
     score = Zold::Score.new(
       time: Time.parse('2017-07-19T21:24:51Z'),
       host: 'localhost', port: 443, invoice: 'NOPREFIX@ffffffffffffffff',
       suffixes: %w[A B C D E F G]
-    ).reduced(2)
+    )
+
+    assert_equal(7, score.value)
+    assert_equal(7, score.suffixes.length)
+    assert_equal(64, score.hash.length)
+
+    score = score.reduced(2)
     assert_equal(2, score.value)
+    assert_equal(2, score.suffixes.length)
     assert_equal(64, score.hash.length)
   end
 
