@@ -25,6 +25,7 @@ require 'minitest/hooks/test'
 require 'tmpdir'
 require 'timeout'
 require 'time'
+require 'timecop'
 require_relative '../../lib/zold/score'
 
 # Score test.
@@ -41,6 +42,30 @@ class TestScore < Minitest::Test
   def around
     Timeout.timeout(10) do
       super
+    end
+  end
+
+  MORE_THEN_DAY = 24 * 60 * 60 + 1
+
+  def test_time_shift
+    string_time = '2018-12-03T06:19:25Z'
+    today = Time.parse string_time
+    tomorrow = today + MORE_THEN_DAY
+
+    score = Zold::Score.parse(
+      "234/7: #{string_time} 94.232.57.6 4096 66Yodh14@1142c2d008235bbe 8GAPAl xfs416 2pcZ2X 2jrGW7 D3QSeI 43iCI5 O6d0Wt lD1UCM 6X4h1r 1OIdNp fyvUDf jmTqHG NcqgvK xpFZx4 tSdYNg SshZaI O3SMO3 InLSCU 07Mz4Y BrgT9h ks230K d5DkfY pj2RvN FIFIx4 SAQXEu LPqQJZ cbhTYe f1iFFL b2N5Yp Pl3pEv NugJPD FBxKj4 Sj3Puv MMxoI0 KS4lIo qdl0qw sBeyPU wLloKy QfidvM UyaryC nrwQgL TxB0ct 9OpOov KVUTA4 2OT2xc U9jPt9 suxLKN UvsWna 9hL9ts 1xl4mt l9q88E 5jNLIk yTEkHY mMTzbs kJf0ZV 7DGDYR 6lMHTv toFiXu 7R57SM 1FDMeC 4CJs3v ekxDea LRrWSc QZVC3b sSWpZE VIL1IK gHhTEu 0xdkju 9yT2SI aqFsbL moSX1v gTgXz8 88ljMU fh03E9 VZezW6 wNxd4w h17XYV 3mhDWb dXWMpD zi220A u5j00S Sd2dbR wXh71b eAGcd3 mW4M1A eimiNK MdyafC zGScqD PE17kv OvYqK5 oYWbUT 1UwH3D ItglP1 qo1oA1 d0PyGe pYQ8w5 7rKcrQ 9ObHg2 ib94Je ig17Jl ZVGwon 4A4Ft3 v0rTZW A8sNyl 0FwMc8 KdNGHp usp03q sTwaB3 gQDyAo 8uroR4 v2YWFV TtxqK3 0ZPToP S2pVHl 9JnduV bsmP5A WONzUx Sqw9me ZqCcep QH4MhS Mx44DO 873cSX fQSxwt wtySrd ZWoopv 3NFQmg Kn9T7W EH9LBg 3u8pSS 3onAMb OHFVoS C70nHC gXA7Ue bP3xpk BynnhJ zG1vcg 535DVw I3xhr1 EOLk4A raXI6K mTG3L4 Xk8e7b gDuulv d1euiN GTbrAL xqdTuL 8BnaQG ydXGkf lSrd5Z dGxNhi ckbckH 5kMWbp 68GXMI 597n5F bOTWDy OBdHxe KNSppq 1CPVNV QhMH2e 3l1cKT ZCSahN tY9V1y 70pWR8 Ygjof2 xqOcuO dIptrV eytpAC INTgf9 D0sAK4 cjhcF0 occlil Fyru2r A8RzRt Dskx0p O8AsMv s961Nk lnziCh t3FJVu gayLha RPCXgK J8qn7B kJtXTi ln0btj IKk6a4 au0IDT szD3Cn e0Ne5U n7ZCKv dnV08u rIR9Dq mfd5Og 9sQkez 6BGfMp W3L6V0 NxBAH0 OqXq5D GOSU8t vK4xGe UxYajD fJCVuN rYKSEs L5aZx0 Z1uVeK CbROq1 3av5dT wBX8SJ jSUDj0 N4GFk9 4vTC1e sYxCR2 5rlheu A60dbW MneQOP YSUoTO nyHMMD kWoHEM c5xPec r2LJTy j3ZUja 3yJrgc XGg66T XxuyFe lH6TIC LrVIjq 7Nzitw 11f0kN Ha9bdu 4vorZX JqulY2 mRmrxw FSHKgp E6eG9L IgZBhY CKGFml" # rubocop:disable Metrics/LineLength
+    )
+
+    assert(score.valid?)
+    assert_equal(234, score.value)
+
+    Timecop.freeze(today) do
+      assert(!score.expired?)
+    end
+
+    Timecop.freeze(tomorrow) do
+      assert(score.expired?)
+      assert(score.valid?)
     end
   end
 

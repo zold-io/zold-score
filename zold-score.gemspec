@@ -46,4 +46,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake-compiler', '1.0.4'
   s.add_development_dependency 'rdoc', '4.3.0'
   s.add_development_dependency 'rubocop', '0.60.0'
+  s.add_development_dependency 'timecop', '0.9.0'
 end
