@@ -104,31 +104,6 @@ class TestScore < Minitest::Test
     assert(ex.message.include?('Invalid score'), ex)
   end
 
-  def test_prints_and_parses_text
-    time = Time.now
-    score = Zold::Score.parse_text(
-      Zold::Score.new(
-        time: time, host: 'a.example.com', port: 999, invoice: 'NOPREFIX@ffffffffffffffff',
-        strength: 1
-      ).next.next.next.to_text
-    )
-    assert_equal(3, score.value)
-    assert_equal(score.time.utc.to_s, time.utc.to_s)
-    assert_equal('a.example.com', score.host)
-    assert_equal(999, score.port)
-  end
-
-  def test_prints_and_parses_text_zero_score
-    time = Time.now
-    score = Zold::Score.parse_text(
-      Zold::Score.new(
-        time: time, host: '192.168.0.1', port: 1, invoice: 'NOPREFIX@ffffffffffffffff', suffixes: []
-      ).to_text
-    )
-    assert_equal(0, score.value)
-    assert(!score.expired?)
-  end
-
   def test_prints_and_parses_zero_score
     time = Time.now
     score = Zold::Score.parse(
