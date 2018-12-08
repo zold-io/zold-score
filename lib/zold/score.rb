@@ -46,7 +46,7 @@ module Zold
     # a node. If the number if too small, the values of the score will be
     # big and the amount of data to be transferred from node to node will
     # increase. The number is set empirically.
-    STRENGTH = 7
+    STRENGTH = 8
 
     attr_reader :time, :host, :port, :invoice, :suffixes, :strength, :created
 
