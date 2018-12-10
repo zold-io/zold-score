@@ -92,7 +92,7 @@ class TestScore < Minitest::Test
       ).next.next.to_s
     )
     assert_equal(2, score.value)
-    assert_equal(score.time.to_s, time.to_s)
+    assert_equal(score.time.utc.iso8601, time.utc.iso8601)
     assert_equal('localhost', score.host)
     assert_equal(999, score.port)
   end
