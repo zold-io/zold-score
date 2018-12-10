@@ -133,6 +133,14 @@ class TestScore < Minitest::Test
     assert(!score.expired?)
   end
 
+  def test_is_not_valid_if_time_is_in_future
+    score = Zold::Score.new(
+      time: Time.now + 60 * 60, host: 'localhost', port: 443,
+      invoice: 'NOPREFIX@ffffffffffffffff', strength: 2
+    )
+    assert(!score.valid?)
+  end
+
   def test_correct_number_of_zeroes
     score = Zold::Score.new(
       time: Time.now, host: 'localhost', port: 443,

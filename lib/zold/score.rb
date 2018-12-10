@@ -197,7 +197,7 @@ module Zold
     # Returns TRUE if the score is valid: all its suffixes correctly consistute
     # the hash, according to the algorithm explained in the White Paper.
     def valid?
-      @suffixes.empty? || hash.end_with?('0' * @strength)
+      (@suffixes.empty? || hash.end_with?('0' * @strength)) && @time < Time.now
     end
 
     # Returns the value of the score, from zero and up. The value is basically
