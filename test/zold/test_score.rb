@@ -111,7 +111,7 @@ class TestScore < Minitest::Test
       time: time, host: '192.168.0.1', port: 1,
       invoice: 'NOPREFIX@ffffffffffffffff', suffixes: []
     )
-    text = before.to_s
+    text = before.to_s.strip
     after = Zold::Score.parse(text)
     assert_equal(before.value, after.value)
     assert(!after.expired?)
