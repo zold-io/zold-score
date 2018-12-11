@@ -6,8 +6,6 @@ Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Layout/EndOfLine:
   EnforcedStyle: lf
-Metrics/LineLength:
-  Max: 120
 Metrics/AbcSize:
   Max: 25
 Metrics/BlockLength:

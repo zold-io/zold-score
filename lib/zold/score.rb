@@ -63,18 +63,26 @@ module Zold
     end
 
     # The default no-value score.
-    ZERO = Score.new(time: Time.now, host: 'localhost', invoice: 'NOPREFIX@ffffffffffffffff')
+    ZERO = Score.new(
+      time: Time.now, host: 'localhost',
+      invoice: 'NOPREFIX@ffffffffffffffff'
+    )
 
     # Parses it back from the JSON.
     def self.parse_json(json)
-      raise "Time in JSON is broken: #{json}" unless json['time'] =~ /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/
+      unless json['time'] =~ /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/
+        raise "Time in JSON is broken: #{json}"
+      end
       raise "Host is wrong: #{json}" unless json['host'] =~ /^[0-9a-z\.\-]+$/
       raise "Port is wrong: #{json}" unless json['port'].is_a?(Integer)
-      raise "Invoice is wrong: #{json}" unless json['invoice'] =~ /^[a-zA-Z0-9]{8,32}@[a-f0-9]{16}$/
+      unless json['invoice'] =~ /^[a-zA-Z0-9]{8,32}@[a-f0-9]{16}$/
+        raise "Invoice is wrong: #{json}"
+      end
       raise "Suffixes not array: #{json}" unless json['suffixes'].is_a?(Array)
       Score.new(
         time: Time.parse(json['time']), host: json['host'],
-        port: json['port'], invoice: json['invoice'], suffixes: json['suffixes'],
+        port: json['port'], invoice: json['invoice'],
+        suffixes: json['suffixes'],
         strength: json['strength']
       )
     end
