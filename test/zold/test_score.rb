@@ -52,11 +52,9 @@ class TestScore < Minitest::Test
       host: 'localhost', port: 443, invoice: 'NOPREFIX@ffffffffffffffff',
       suffixes: %w[A B C D E F G]
     )
-
     assert_equal(7, score.value)
     assert_equal(7, score.suffixes.length)
     assert_equal(64, score.hash.length)
-
     score = score.reduced(2)
     assert_equal(2, score.value)
     assert_equal(2, score.suffixes.length)
