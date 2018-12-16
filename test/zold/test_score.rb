@@ -54,6 +54,15 @@ class TestScore < Minitest::Test
     assert_equal(64, score.hash.length)
   end
 
+  def test_compares
+    score = Zold::Score.new(
+      time: Time.parse('2017-07-19T21:24:51Z'),
+      host: 'localhost', port: 443, invoice: 'NOPREFIX@ffffffffffffffff',
+      suffixes: %w[A B C D E F G]
+    )
+    assert(score == score.reduced(10))
+  end
+
   def test_drops_to_zero_when_expired
     score = Zold::Score.new(
       time: Time.now - Zold::Score::BEST_BEFORE * 60 * 60,

@@ -91,6 +91,26 @@ module Zold
       )
     end
 
+    # Compare with another Score, by text.
+    def ==(other)
+      to_s == other.to_s
+    end
+
+    # Compare with another Score, by value.
+    def <(other)
+      value < other.value
+    end
+
+    # Compare with another Score, by value.
+    def >(other)
+      value > other.value
+    end
+
+    # Compare with another Score, by value.
+    def <=>(other)
+      value <=> other.value
+    end
+
     # Converts it to a string. You can parse it back
     # using <tt>parse()</tt>.
     def to_s
