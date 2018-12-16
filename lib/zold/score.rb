@@ -57,14 +57,17 @@ module Zold
     # Makes a new object of the class.
     def initialize(time: Time.now, host:, port: 4096, invoice:, suffixes: [],
       strength: Score::STRENGTH, created: Time.now)
+      raise 'Time can\'t be nil' if time.nil?
       unless time.is_a?(Time)
         raise "Time must be Time, while #{time.class.name} is provided"
       end
       @time = time
+      raise 'Host can\'t be nil' if host.nil?
       unless host =~ /^[0-9a-z\.\-]+$/
         raise "Host \"#{host}\" is in a wrong format"
       end
       @host = host
+      raise 'Port can\'t be nil' if port.nil?
       unless port.is_a?(Integer)
         raise "Port must be Integer, while #{port.class.name} is provided"
       end
@@ -75,16 +78,20 @@ module Zold
         raise "Port must be positive integer, while #{port} is provided"
       end
       @port = port
+      raise 'Invoice can\'t be nil' if invoice.nil?
       unless invoice =~ /^[a-zA-Z0-9]{8,32}@[a-f0-9]{16}$/
         raise "Invoice \"#{invoice}\" is wrong"
       end
       @invoice = invoice
+      raise 'Suffixes can\'t be nil' if suffixes.nil?
       raise 'Suffixes are not an array' unless suffixes.is_a?(Array)
       @suffixes = suffixes
+      raise 'Strength can\'t be nil' if strength.nil?
       unless strength.positive?
         raise "Strength must be positive integer, while #{strength} is provided"
       end
       @strength = strength
+      raise 'Created can\'t be nil' if created.nil?
       unless created.is_a?(Time)
         raise "Created must be Time, while #{created.class.name} is provided"
       end
