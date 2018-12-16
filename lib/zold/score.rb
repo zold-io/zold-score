@@ -57,12 +57,37 @@ module Zold
     # Makes a new object of the class.
     def initialize(time: Time.now, host:, port: 4096, invoice:, suffixes: [],
       strength: Score::STRENGTH, created: Time.now)
+      unless time.is_a?(Time)
+        raise "Time must be Time, while #{time.class.name} is provided"
+      end
       @time = time
+      unless host =~ /^[0-9a-z\.\-]+$/
+        raise "Host \"#{host}\" is in a wrong format"
+      end
       @host = host
+      unless port.is_a?(Integer)
+        raise "Port must be Integer, while #{port.class.name} is provided"
+      end
+      if port > 65_535
+        raise "Port must be less than 65535, while #{port} is provided"
+      end
+      unless port.positive?
+        raise "Port must be positive integer, while #{port} is provided"
+      end
       @port = port
+      unless invoice =~ /^[a-zA-Z0-9]{8,32}@[a-f0-9]{16}$/
+        raise "Invoice \"#{invoice}\" is wrong"
+      end
       @invoice = invoice
+      raise 'Suffixes are not an array' unless suffixes.is_a?(Array)
       @suffixes = suffixes
+      unless strength.positive?
+        raise "Strength must be positive integer, while #{strength} is provided"
+      end
       @strength = strength
+      unless created.is_a?(Time)
+        raise "Created must be Time, while #{created.class.name} is provided"
+      end
       @created = created
     end
 
@@ -74,18 +99,11 @@ module Zold
 
     # Parses it back from the JSON.
     def self.parse_json(json)
-      unless json['time'] =~ /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/
-        raise "Time in JSON is broken: #{json}"
-      end
-      raise "Host is wrong: #{json}" unless json['host'] =~ /^[0-9a-z\.\-]+$/
-      raise "Port is wrong: #{json}" unless json['port'].is_a?(Integer)
-      unless json['invoice'] =~ /^[a-zA-Z0-9]{8,32}@[a-f0-9]{16}$/
-        raise "Invoice is wrong: #{json}"
-      end
-      raise "Suffixes not array: #{json}" unless json['suffixes'].is_a?(Array)
       Score.new(
-        time: Time.parse(json['time']), host: json['host'],
-        port: json['port'], invoice: json['invoice'],
+        time: Time.parse(json['time']),
+        host: json['host'],
+        port: json['port'],
+        invoice: json['invoice'],
         suffixes: json['suffixes'],
         strength: json['strength']
       )

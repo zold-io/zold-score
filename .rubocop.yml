@@ -7,14 +7,18 @@ Layout/EmptyLineAfterGuardClause:
 Layout/EndOfLine:
   EnforcedStyle: lf
 Metrics/AbcSize:
-  Max: 25
+  Max: 30
 Metrics/BlockLength:
   Max: 30
 Metrics/MethodLength:
-  Max: 25
+  Max: 40
 Metrics/ClassLength:
   Max: 180
 Metrics/ParameterLists:
   Max: 7
 Layout/AlignParameters:
   Enabled: false
+Metrics/CyclomaticComplexity:
+  Max: 10
+Metrics/PerceivedComplexity:
+  Max: 10
