@@ -48,6 +48,10 @@ module Zold
     # increase. The number is set empirically.
     STRENGTH = 8
 
+    # The maximum amount of hours a score can stay "fresh." After that it
+    # will be considered expired.
+    BEST_BEFORE = 24
+
     attr_reader :time, :host, :port, :invoice, :suffixes, :strength, :created
 
     # Makes a new object of the class.
@@ -183,7 +187,7 @@ module Zold
     end
 
     # Returns TRUE if the age of the score is over 24 hours.
-    def expired?(hours = 24)
+    def expired?(hours = BEST_BEFORE)
       age > hours * 60 * 60
     end
 

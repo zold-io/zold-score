@@ -56,7 +56,7 @@ class TestScore < Minitest::Test
 
   def test_drops_to_zero_when_expired
     score = Zold::Score.new(
-      time: Time.now - 24 * 60 * 60,
+      time: Time.now - Zold::Score::BEST_BEFORE * 60 * 60,
       host: 'some-host', port: 9999, invoice: 'NOPREFIX@ffffffffffffffff',
       strength: 50
     ).next
