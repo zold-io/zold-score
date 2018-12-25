@@ -22,7 +22,7 @@
 #include <random>
 #include <vector>
 #include <openssl/sha.h>
-#include <ruby.h>
+#include <ruby/ruby.h>
 #include <ruby/thread.h>
 
 using namespace std;
