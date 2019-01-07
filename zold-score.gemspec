@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright (c) 2018 Yegor Bugayenko
+# Copyright (c) 2018-2019 Yegor Bugayenko
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the 'Software'), to deal
@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
     s.required_rubygems_version = Gem::Requirement.new('>= 0')
   end
   s.rubygems_version = '2.2'
-  s.required_ruby_version = '>=2.3'
+  s.required_ruby_version = '>=2.5'
   s.name = 'zold-score'
   s.version = '0.0.0'
   s.license = 'MIT'
@@ -48,6 +48,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake-compiler', '1.0.4'
   s.add_development_dependency 'rdoc', '4.3.0'
   s.add_development_dependency 'rspec-rails', '3.8.1'
-  s.add_development_dependency 'rubocop', '0.60.0'
-  s.add_development_dependency 'rubocop-rspec', '1.30.0'
+  s.add_development_dependency 'rubocop', '0.62.0'
+  s.add_development_dependency 'rubocop-rspec', '1.31.0'
 end

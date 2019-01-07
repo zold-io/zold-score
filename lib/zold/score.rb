@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright (c) 2018 Yegor Bugayenko
+# Copyright (c) 2018-2019 Yegor Bugayenko
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the 'Software'), to deal
@@ -36,7 +36,7 @@ require 'time'
 # {White Paper}[https://papers.zold.io/wp.pdf].
 #
 # Author:: Yegor Bugayenko (yegor256@gmail.com)
-# Copyright:: Copyright (c) 2018 Yegor Bugayenko
+# Copyright:: Copyright (c) 2018-2019 Yegor Bugayenko
 # License:: MIT
 module Zold
   # Score
@@ -63,7 +63,7 @@ module Zold
       end
       @time = time
       raise 'Host can\'t be nil' if host.nil?
-      unless host =~ /^[0-9a-z\.\-]+$/
+      unless /^[0-9a-z\.\-]+$/.match?(host)
         raise "Host \"#{host}\" is in a wrong format"
       end
       @host = host
@@ -79,7 +79,7 @@ module Zold
       end
       @port = port
       raise 'Invoice can\'t be nil' if invoice.nil?
-      unless invoice =~ /^[a-zA-Z0-9]{8,32}@[a-f0-9]{16}$/
+      unless /^[a-zA-Z0-9]{8,32}@[a-f0-9]{16}$/.match?(invoice)
         raise "Invoice \"#{invoice}\" is wrong"
       end
       @invoice = invoice

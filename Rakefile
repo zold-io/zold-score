@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright (c) 2018 Yegor Bugayenko
+# Copyright (c) 2018-2019 Yegor Bugayenko
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the 'Software'), to deal
@@ -68,7 +68,7 @@ RuboCop::RakeTask.new(:rubocop) do |task|
 end
 
 task :copyright do
-  sh "grep -q -r '#{Date.today.strftime('%Y')}' \
+  sh "grep -q -r '2018-#{Date.today.strftime('%Y')}' \
     --include '*.rb' \
     --include '*.txt' \
     --include 'Rakefile' \
