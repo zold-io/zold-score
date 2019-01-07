@@ -108,10 +108,11 @@ class TestScore < Minitest::Test
   end
 
   def test_parses_broken_text
-    ex = assert_raises do
-      Zold::Score.parse('some garbage')
+    text = 'some garbage to parse, which can\'t be parsed'
+    ex = assert_raises(Zold::Score::CantParse) do
+      Zold::Score.parse(text)
     end
-    assert(ex.message.include?('Invalid score'), ex)
+    assert(ex.message.include?(text), ex)
   end
 
   def test_prints_and_parses_zero_score

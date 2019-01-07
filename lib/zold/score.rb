@@ -41,6 +41,9 @@ require 'time'
 module Zold
   # Score
   class Score
+    # When can't parse
+    class CantParse < StandardError; end
+
     # Default strength for the entire system, in production mode. The larger
     # the number, the more difficult it is to find the next score for
     # a node. If the number if too small, the values of the score will be
@@ -106,7 +109,7 @@ module Zold
 
     # Parses it back from the JSON.
     def self.parse_json(json)
-      raise 'JSON can\'t be nil' if json.nil?
+      raise CantParse, 'JSON can\'t be nil' if json.nil?
       Score.new(
         time: Time.parse(json['time']),
         host: json['host'],
@@ -115,6 +118,8 @@ module Zold
         suffixes: json['suffixes'],
         strength: json['strength']
       )
+    rescue StandardError => e
+      raise CantParse, "#{e.message} in \"#{json}\""
     end
 
     # Compare with another Score, by text.
@@ -160,7 +165,7 @@ module Zold
     def self.parse(text)
       raise 'Can\'t parse nil' if text.nil?
       parts = text.split(' ', 7)
-      raise "Invalid score, not enough parts in \"#{text}\"" if parts.length < 6
+      raise 'Invalid score, not enough parts' if parts.length < 6
       Score.new(
         time: Time.at(parts[1].hex),
         host: parts[2],
@@ -169,6 +174,8 @@ module Zold
         suffixes: parts[6] ? parts[6].split(' ') : [],
         strength: parts[0].to_i
       )
+    rescue StandardError => e
+      raise CantParse, "#{e.message} in \"#{text}\""
     end
 
     # Returns its crypto hash. Read the White Paper for more information.
