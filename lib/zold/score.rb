@@ -119,7 +119,7 @@ module Zold
         strength: json['strength']
       )
     rescue StandardError => e
-      raise CantParse, "#{e.message} in \"#{json}\""
+      raise CantParse, "#{e.message} in #{json.inspect}"
     end
 
     # Compare with another Score, by text.
@@ -175,7 +175,7 @@ module Zold
         strength: parts[0].to_i
       )
     rescue StandardError => e
-      raise CantParse, "#{e.message} in \"#{text}\""
+      raise CantParse, "#{e.message} in #{text.inspect}"
     end
 
     # Returns its crypto hash. Read the White Paper for more information.
