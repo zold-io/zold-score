@@ -19,7 +19,10 @@ Join our [Telegram group](https://t.me/zold_io) to discuss it all live.
 
 The license is [MIT](https://github.com/zold-io/zold-score/blob/master/LICENSE.txt).
 
-This small Ruby Gem calculates the score for Zold nodes.
+This small Ruby Gem calculates the score for Zold nodes. The idea of the
+"score" is explained in the [White Paper](https://papers.zold.io/wp.pdf). To
+get a better understanding of it you may want to read
+[our blog](https://blog.zold.io).
 
 To calculate a new Score you create an object first:
 
@@ -42,7 +45,7 @@ That's it.
 
 This project is actively used in our [main Ruby repo](https://github.com/zold-io/zold).
 
-# How to contribute
+## How to contribute
 
 Read [these guidelines](https://www.yegor256.com/2014/04/15/github-guidelines.html).
 Make sure you build is green before you contribute
@@ -51,7 +54,7 @@ your pull request. You will need to have [Ruby](https://www.ruby-lang.org/en/) 2
 
 ```
 $ bundle update
-$ rake
+$ bundle exec rake
 ```
 
 If it's clean and you don't see any error messages, submit your pull request.
