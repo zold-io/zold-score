@@ -14,7 +14,7 @@
 [![Test Coverage](https://img.shields.io/codecov/c/github/zold-io/zold-score.svg)](https://codecov.io/github/zold-io/zold-score?branch=master)
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/takes/blob/master/LICENSE.txt)
-[![Hits-of-Code](https://hitsofcode.com/github/zold-io/zold-score)](https://hitsofcode.com/view/github/zold-score)
+[![Hits-of-Code](https://hitsofcode.com/github/zold-io/zold-score)](https://hitsofcode.com/view/github/zold-io/zold-score)
 
 Here is the [White Paper](https://papers.zold.io/wp.pdf).
 
