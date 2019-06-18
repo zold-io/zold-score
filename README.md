@@ -13,11 +13,12 @@
 [![Gem Version](https://badge.fury.io/rb/zold-score.svg)](http://badge.fury.io/rb/zold-score)
 [![Test Coverage](https://img.shields.io/codecov/c/github/zold-io/zold-score.svg)](https://codecov.io/github/zold-io/zold-score?branch=master)
 
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/takes/blob/master/LICENSE.txt)
+[![Hits-of-Code](https://hitsofcode.com/github/zold-io/zold-score)](https://hitsofcode.com/view/github/zold-score)
+
 Here is the [White Paper](https://papers.zold.io/wp.pdf).
 
 Join our [Telegram group](https://t.me/zold_io) to discuss it all live.
-
-The license is [MIT](https://github.com/zold-io/zold-score/blob/master/LICENSE.txt).
 
 This small Ruby Gem calculates the score for Zold nodes. The idea of the
 "score" is explained in the [White Paper](https://papers.zold.io/wp.pdf). To
