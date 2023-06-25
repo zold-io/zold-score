@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = '2.2'
   s.required_ruby_version = '>=2.5'
   s.name = 'zold-score'
-  s.version = '0.0.0'
+  s.version = '0.5.0'
   s.license = 'MIT'
   s.summary = 'Zold score'
   s.description = 'Score calculating Ruby Gem for Zold'
