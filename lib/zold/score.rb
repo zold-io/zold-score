@@ -58,46 +58,30 @@ module Zold
     attr_reader :time, :host, :port, :invoice, :suffixes, :strength, :created
 
     # Makes a new object of the class.
-    def initialize(time: Time.now, host:, port: 4096, invoice:, suffixes: [],
+    def initialize(host:, invoice:, time: Time.now, port: 4096, suffixes: [],
       strength: Score::STRENGTH, created: Time.now)
       raise 'Time can\'t be nil' if time.nil?
-      unless time.is_a?(Time)
-        raise "Time must be Time, while #{time.class.name} is provided"
-      end
+      raise "Time must be Time, while #{time.class.name} is provided" unless time.is_a?(Time)
       @time = time
       raise 'Host can\'t be nil' if host.nil?
-      unless /^[0-9a-z\.\-]+$/.match?(host)
-        raise "Host \"#{host}\" is in a wrong format"
-      end
+      raise "Host \"#{host}\" is in a wrong format" unless /^[0-9a-z.-]+$/.match?(host)
       @host = host
       raise 'Port can\'t be nil' if port.nil?
-      unless port.is_a?(Integer)
-        raise "Port must be Integer, while #{port.class.name} is provided"
-      end
-      if port > 65_535
-        raise "Port must be less than 65535, while #{port} is provided"
-      end
-      unless port.positive?
-        raise "Port must be positive integer, while #{port} is provided"
-      end
+      raise "Port must be Integer, while #{port.class.name} is provided" unless port.is_a?(Integer)
+      raise "Port must be less than 65535, while #{port} is provided" if port > 65_535
+      raise "Port must be positive integer, while #{port} is provided" unless port.positive?
       @port = port
       raise 'Invoice can\'t be nil' if invoice.nil?
-      unless /^[a-zA-Z0-9]{8,32}@[a-f0-9]{16}$/.match?(invoice)
-        raise "Invoice \"#{invoice}\" is wrong"
-      end
+      raise "Invoice \"#{invoice}\" is wrong" unless /^[a-zA-Z0-9]{8,32}@[a-f0-9]{16}$/.match?(invoice)
       @invoice = invoice
       raise 'Suffixes can\'t be nil' if suffixes.nil?
       raise 'Suffixes are not an array' unless suffixes.is_a?(Array)
       @suffixes = suffixes
       raise 'Strength can\'t be nil' if strength.nil?
-      unless strength.positive?
-        raise "Strength must be positive integer, while #{strength} is provided"
-      end
+      raise "Strength must be positive integer, while #{strength} is provided" unless strength.positive?
       @strength = strength
       raise 'Created can\'t be nil' if created.nil?
-      unless created.is_a?(Time)
-        raise "Created must be Time, while #{created.class.name} is provided"
-      end
+      raise "Created must be Time, while #{created.class.name} is provided" unless created.is_a?(Time)
       @created = created
     end
 
@@ -172,7 +156,7 @@ module Zold
           host: parts[2],
           port: parts[3].hex,
           invoice: "#{parts[4]}@#{parts[5]}",
-          suffixes: parts[6] ? parts[6].split(' ') : [],
+          suffixes: parts[6] ? parts[6].split : [],
           strength: parts[0].to_i
         )
       rescue StandardError => e
@@ -184,7 +168,7 @@ module Zold
     def hash
       raise 'Score has zero value, there is no hash' if @suffixes.empty?
       @suffixes.reduce(prefix) do |pfx, suffix|
-        OpenSSL::Digest::SHA256.new("#{pfx} #{suffix}").hexdigest
+        OpenSSL::Digest.new('SHA256', "#{pfx} #{suffix}").hexdigest
       end
     end
 

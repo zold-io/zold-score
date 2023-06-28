@@ -22,11 +22,7 @@
 
 require 'English'
 Gem::Specification.new do |s|
-  s.specification_version = 2 if s.respond_to? :specification_version=
-  if s.respond_to? :required_rubygems_version=
-    s.required_rubygems_version = Gem::Requirement.new('>= 0')
-  end
-  s.rubygems_version = '2.2'
+  s.required_rubygems_version = Gem::Requirement.new('>= 0') if s.respond_to? :required_rubygems_version=
   s.required_ruby_version = '>=2.5'
   s.name = 'zold-score'
   s.version = '0.0.0'
@@ -39,7 +35,8 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split($RS)
   s.extensions = %w[ext/score_suffix/extconf.rb]
   s.executables = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  s.test_files = s.files.grep(%r{^(test|features)/})
   s.rdoc_options = ['--charset=UTF-8']
   s.extra_rdoc_files = ['README.md', 'LICENSE.txt']
+  s.add_runtime_dependency 'openssl', '~>3.0'
+  s.metadata['rubygems_mfa_required'] = 'true'
 end

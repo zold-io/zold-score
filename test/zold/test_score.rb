@@ -65,7 +65,7 @@ class TestScore < Minitest::Test
 
   def test_drops_to_zero_when_expired
     score = Zold::Score.new(
-      time: Time.now - Zold::Score::BEST_BEFORE * 60 * 60,
+      time: Time.now - (Zold::Score::BEST_BEFORE * 60 * 60),
       host: 'some-host', port: 9999, invoice: 'NOPREFIX@ffffffffffffffff',
       strength: 50
     ).next
@@ -139,7 +139,7 @@ class TestScore < Minitest::Test
 
   def test_dont_expire_correctly
     score = Zold::Score.new(
-      time: Time.now - 10 * 60 * 60, host: 'localhost', port: 443,
+      time: Time.now - (10 * 60 * 60), host: 'localhost', port: 443,
       invoice: 'NOPREFIX@ffffffffffffffff', strength: 2
     ).next.next.next
     assert(!score.expired?)
@@ -147,7 +147,7 @@ class TestScore < Minitest::Test
 
   def test_is_not_valid_if_time_is_in_future
     score = Zold::Score.new(
-      time: Time.now + 60 * 60, host: 'localhost', port: 443,
+      time: Time.now + (60 * 60), host: 'localhost', port: 443,
       invoice: 'NOPREFIX@ffffffffffffffff', strength: 2
     )
     assert(!score.valid?)
