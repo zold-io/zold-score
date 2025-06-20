@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = 'Score calculating Ruby Gem for Zold'
   s.authors = ['Yegor Bugayenko']
   s.email = 'yegor256@gmail.com'
-  s.homepage = 'http://github.com/zold-io/zold-score'
+  s.homepage = 'https://github.com/zold-io/zold-score'
   s.files = `git ls-files`.split($RS)
   s.extensions = %w[ext/score_suffix/extconf.rb]
   s.executables = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
