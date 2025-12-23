@@ -4,11 +4,13 @@
 #include <array>
 #include <random>
 #include <vector>
-#include <openssl/sha.h>
+#include <openssl/evp.h>
 #include <ruby.h>
 #include <ruby/thread.h>
 
 using namespace std;
+
+const size_t SHA256_LEN = 32;
 
 struct index_params {
 	string prefix;
@@ -18,18 +20,20 @@ struct index_params {
 };
 
 static
-array<uint8_t, SHA256_DIGEST_LENGTH> sha256(const string &string)
+array<uint8_t, SHA256_LEN> sha256(const string &input)
 {
-	SHA256_CTX ctx;
-	SHA256_Init(&ctx);
-	SHA256_Update(&ctx, string.data(), string.size());
-	array<uint8_t, SHA256_DIGEST_LENGTH> hash;
-	SHA256_Final(&hash[0], &ctx);
+	array<uint8_t, SHA256_LEN> hash;
+	unsigned int len = 0;
+	EVP_MD_CTX *ctx = EVP_MD_CTX_new();
+	EVP_DigestInit_ex(ctx, EVP_sha256(), nullptr);
+	EVP_DigestUpdate(ctx, input.data(), input.size());
+	EVP_DigestFinal_ex(ctx, hash.data(), &len);
+	EVP_MD_CTX_free(ctx);
 	return hash;
 }
 
 static
-bool check_hash(const array<uint8_t, SHA256_DIGEST_LENGTH> &hash, int strength)
+bool check_hash(const array<uint8_t, SHA256_LEN> &hash, int strength)
 {
 	int current_strength = 0;
 	const auto rend = hash.rend();
