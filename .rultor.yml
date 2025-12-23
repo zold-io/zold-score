@@ -12,7 +12,6 @@ install: |-
 release:
   pre: false
   script: |-
-    bundle install
     bundle exec rake
     rm -rf *.gem
     sed -i "s/0\.0\.0/${tag}/g" zold-score.gemspec
