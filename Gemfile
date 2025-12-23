@@ -6,8 +6,9 @@
 source 'https://rubygems.org'
 gemspec
 
-gem 'minitest', '~>5.18', require: false
+gem 'minitest', '~>6.0', require: false
 gem 'minitest-hooks', '~>1.5', require: false
+gem 'minitest-reporters', '~>1.7', require: false
 gem 'rake-compiler', '~>1.2', require: false
 gem 'rdoc', '6.1.2.1', require: false
 gem 'rspec-rails', '~>6.0', require: false
@@ -17,3 +18,5 @@ gem 'rubocop-performance', '>0', require: false
 gem 'rubocop-rake', '>0', require: false
 gem 'rubocop-rspec', '~>2.22', require: false
 gem 'simplecov', '~>0.22', require: false
+gem 'simplecov-cobertura', '~>3.0', require: false
+gem 'webmock', '~>3.23', require: false

@@ -3,7 +3,7 @@
 ---
 # yamllint disable rule:line-length
 docker:
-  image: yegor256/rultor-image:1.24.0
+  image: yegor256/ruby
 assets:
   rubygems.yml: zerocracy/home#assets/rubygems.yml
 install: |-
@@ -13,7 +13,7 @@ release:
   pre: false
   script: |-
     bundle install
-    rake
+    bundle exec rake
     rm -rf *.gem
     sed -i "s/0\.0\.0/${tag}/g" zold-score.gemspec
     git add zold-score.gemspec
@@ -23,5 +23,4 @@ release:
     gem push *.gem --config-file ../rubygems.yml
 merge:
   script: |-
-    bundle install
-    rake
+    bundle exec rake

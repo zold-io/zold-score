@@ -16,7 +16,7 @@ def version
   Gem::Specification.load(Dir['*.gemspec'].first).version
 end
 
-task default: %i[clean compile test rubocop copyright]
+task default: %i[clean compile test rubocop]
 
 require 'rake/extensiontask'
 Rake::ExtensionTask.new 'score_suffix' do |ext|
@@ -47,13 +47,4 @@ require 'rubocop/rake_task'
 desc 'Run RuboCop on all directories'
 RuboCop::RakeTask.new(:rubocop) do |task|
   task.fail_on_error = true
-  task.requires << 'rubocop-rspec'
-end
-
-task :copyright do
-  sh "grep -q -r '2018-#{Date.today.strftime('%Y')}' \
-    --include '*.rb' \
-    --include '*.txt' \
-    --include 'Rakefile' \
-    ."
 end

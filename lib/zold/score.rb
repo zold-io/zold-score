@@ -186,7 +186,7 @@ module Zold
       raise "Max can't be negative: #{max}" if max.negative?
       Score.new(
         time: @time, host: @host, port: @port, invoice: @invoice,
-        suffixes: @suffixes[0..[max, suffixes.count].min - 1],
+        suffixes: @suffixes[0..([max, suffixes.count].min - 1)],
         strength: @strength
       )
     end

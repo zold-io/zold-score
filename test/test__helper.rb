@@ -6,6 +6,28 @@
 $stdout.sync = true
 
 require 'simplecov'
-SimpleCov.start
+require 'simplecov-cobertura'
+unless SimpleCov.running || ENV['PICKS']
+  SimpleCov.command_name('test')
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
+    [
+      SimpleCov::Formatter::HTMLFormatter,
+      SimpleCov::Formatter::CoberturaFormatter
+    ]
+  )
+  SimpleCov.minimum_coverage 85
+  SimpleCov.minimum_coverage_by_file 60
+  SimpleCov.start do
+    add_filter 'test/'
+    add_filter 'vendor/'
+    add_filter 'target/'
+    track_files 'lib/**/*.rb'
+    track_files '*.rb'
+  end
+end
 
 require 'minitest/autorun'
+require 'minitest/reporters'
+require 'webmock/minitest'
+Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new]
+Minitest.load :minitest_reporter

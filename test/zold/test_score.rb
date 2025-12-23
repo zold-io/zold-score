@@ -43,7 +43,7 @@ class TestScore < Minitest::Test
       host: 'localhost', port: 443, invoice: 'NOPREFIX@ffffffffffffffff',
       suffixes: %w[A B C D E F G]
     )
-    assert(score == score.reduced(10))
+    assert_equal(score, score.reduced(10))
   end
 
   def test_drops_to_zero_when_expired
@@ -52,8 +52,8 @@ class TestScore < Minitest::Test
       host: 'some-host', port: 9999, invoice: 'NOPREFIX@ffffffffffffffff',
       strength: 50
     ).next
-    assert(score.valid?)
-    assert(!score.expired?)
+    assert_predicate(score, :valid?)
+    refute_predicate(score, :expired?)
     assert_equal(0, score.value)
   end
 
@@ -64,7 +64,7 @@ class TestScore < Minitest::Test
       suffixes: %w[xxx yyy zzz]
     )
     assert_equal(3, score.value)
-    assert(!score.valid?)
+    refute_predicate(score, :valid?)
   end
 
   def test_prints_mnemo
@@ -95,7 +95,7 @@ class TestScore < Minitest::Test
     ex = assert_raises(Zold::Score::CantParse) do
       Zold::Score.parse(text)
     end
-    assert(ex.message.include?(text), ex)
+    assert_includes(ex.message, text, ex)
   end
 
   def test_prints_and_parses_zero_score
@@ -107,7 +107,7 @@ class TestScore < Minitest::Test
     text = before.to_s.strip
     after = Zold::Score.parse(text)
     assert_equal(before.value, after.value)
-    assert(!after.expired?)
+    refute_predicate(after, :expired?)
   end
 
   def test_finds_next_score
@@ -116,8 +116,8 @@ class TestScore < Minitest::Test
       invoice: 'NOPREFIX@ffffffffffffffff', strength: 2
     ).next.next.next
     assert_equal(3, score.value)
-    assert(score.valid?)
-    assert(!score.expired?)
+    assert_predicate(score, :valid?)
+    refute_predicate(score, :expired?)
   end
 
   def test_dont_expire_correctly
@@ -125,7 +125,7 @@ class TestScore < Minitest::Test
       time: Time.now - (10 * 60 * 60), host: 'localhost', port: 443,
       invoice: 'NOPREFIX@ffffffffffffffff', strength: 2
     ).next.next.next
-    assert(!score.expired?)
+    refute_predicate(score, :expired?)
   end
 
   def test_is_not_valid_if_time_is_in_future
@@ -133,7 +133,7 @@ class TestScore < Minitest::Test
       time: Time.now + (60 * 60), host: 'localhost', port: 443,
       invoice: 'NOPREFIX@ffffffffffffffff', strength: 2
     )
-    assert(!score.valid?)
+    refute_predicate(score, :valid?)
   end
 
   def test_correct_number_of_zeroes
