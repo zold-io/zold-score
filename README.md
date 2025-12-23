@@ -1,4 +1,4 @@
-<img src="https://www.zold.io/logo.svg" width="92px" height="92px"/>
+# Zold Score Calculator, in Ruby and C++
 
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 [![DevOps By Rultor.com](https://www.rultor.com/b/yegor256/zold)](https://www.rultor.com/p/yegor256/zold)
@@ -16,8 +16,8 @@ Here is the [White Paper](https://papers.zold.io/wp.pdf).
 Join our [Telegram group](https://t.me/zold_io) to discuss it all live.
 
 This small Ruby Gem calculates the score for Zold nodes. The idea of the
-"score" is explained in the [White Paper](https://papers.zold.io/wp.pdf). To
-get a better understanding of it you may want to read
+"score" is explained in the [White Paper](https://papers.zold.io/wp.pdf).
+To get a better understanding of it you may want to read
 [our blog](https://blog.zold.io).
 
 To calculate a new Score you create an object first:
@@ -31,7 +31,8 @@ score = Zold::Score.new(
 )
 ```
 
-This score has zero value and the strength of six. Then you just ask it to calculate the next score:
+This score has zero value and the strength of six.
+Then you just ask it to calculate the next score:
 
 ```ruby
 n = score.next
@@ -39,18 +40,22 @@ n = score.next
 
 That's it.
 
-This project is actively used in our [main Ruby repo](https://github.com/zold-io/zold).
+This project is actively used in our
+[main Ruby repo](https://github.com/zold-io/zold).
 
 ## How to contribute
 
-Read [these guidelines](https://www.yegor256.com/2014/04/15/github-guidelines.html).
-Make sure your build is green before you contribute
-your pull request. You will need to have [Ruby](https://www.ruby-lang.org/en/) 2.3+ and
-[Bundler](https://bundler.io/) installed. Then:
+Read these [guidelines].
+Make sure your build is green before you contribute your pull request.
+You will need to have [Ruby](https://www.ruby-lang.org/en/) 2.3+ and
+[Bundler](https://bundler.io/) installed.
+Then:
 
-```
-$ bundle update
-$ bundle exec rake
+```bash
+bundle update
+bundle exec rake
 ```
 
 If it's clean and you don't see any error messages, submit your pull request.
+
+[guidelines]: https://www.yegor256.com/2014/04/15/github-guidelines.html
