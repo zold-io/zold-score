@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# SPDX-FileCopyrightText: Copyright (c) 2018-2025 Zerocracy
+# SPDX-FileCopyrightText: Copyright (c) 2018-2026 Zerocracy
 # SPDX-License-Identifier: MIT
 
 require 'minitest/autorun'
@@ -12,7 +12,7 @@ require_relative '../../lib/zold/score'
 
 # Score test.
 # Author:: Yegor Bugayenko (yegor256@gmail.com)
-# Copyright:: Copyright (c) 2018-2025 Zerocracy
+# Copyright:: Copyright (c) 2018-2026 Zerocracy
 # License:: MIT
 class TestScore < Minitest::Test
   include Minitest::Hooks
