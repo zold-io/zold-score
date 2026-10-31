@@ -226,7 +226,7 @@ module Zold
       "#{@time.utc.iso8601} #{@host} #{@port} #{@invoice}"
     end
 
-    # Returns TRUE if the score is valid: all its suffixes correctly consistute
+    # Returns TRUE if the score is valid: all its suffixes correctly constitute
     # the hash, according to the algorithm explained in the White Paper.
     def valid?
       (@suffixes.empty? || hash.end_with?('0' * @strength)) && @time < Time.now
