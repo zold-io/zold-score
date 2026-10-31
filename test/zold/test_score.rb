@@ -37,6 +37,15 @@ class TestScore < Minitest::Test
     assert_equal(64, score.hash.length)
   end
 
+  def test_reduces_itself_to_zero
+    score = Zold::Score.new(
+      time: Time.parse('2017-07-19T21:24:51Z'),
+      host: 'localhost', port: 443, invoice: 'NOPREFIX@ffffffffffffffff',
+      suffixes: %w[A B C D E F G]
+    ).reduced(0)
+    assert_equal(0, score.value)
+  end
+
   def test_compares
     score = Zold::Score.new(
       time: Time.parse('2017-07-19T21:24:51Z'),
