@@ -11,12 +11,12 @@ gem 'minitest-hooks', '~>1.5', require: false
 gem 'minitest-reporters', '~>1.7', require: false
 gem 'rake-compiler', '~>1.2', require: false
 gem 'rdoc', '8.1.0', require: false
-gem 'rspec-rails', '~>6.0', require: false
+gem 'rspec-rails', '~>8.0', require: false
 gem 'rubocop', '~>1.53', require: false
 gem 'rubocop-minitest', '>0', require: false
 gem 'rubocop-performance', '>0', require: false
 gem 'rubocop-rake', '>0', require: false
-gem 'rubocop-rspec', '~>2.22', require: false
+gem 'rubocop-rspec', '~>3.0', require: false
 gem 'simplecov', '~>1.0', require: false
 gem 'simplecov-cobertura', '~>4.0', require: false
 gem 'webmock', '~>3.23', require: false
