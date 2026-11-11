@@ -76,6 +76,18 @@ class TestScore < Minitest::Test
     refute_predicate(score, :valid?)
   end
 
+  def test_rejects_multiline_host
+    assert_raises(RuntimeError) do
+      Zold::Score.new(host: "example.org\nevil host", invoice: 'PREFIX12@0000000000000000')
+    end
+  end
+
+  def test_rejects_multiline_invoice
+    assert_raises(RuntimeError) do
+      Zold::Score.new(host: 'example.org', invoice: "junk!\nPREFIX12@0000000000000000")
+    end
+  end
+
   def test_prints_mnemo
     score = Zold::Score.new(
       time: Time.parse('2017-07-19T22:32:51Z'),
