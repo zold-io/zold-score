@@ -47,7 +47,7 @@ module Zold
       raise "Time must be Time, while #{time.class.name} is provided" unless time.is_a?(Time)
       @time = time
       raise 'Host can\'t be nil' if host.nil?
-      raise "Host \"#{host}\" is in a wrong format" unless /^[0-9a-z.-]+$/.match?(host)
+      raise "Host \"#{host}\" is in a wrong format" unless /\A[0-9a-z.-]+\z/.match?(host)
       @host = host
       raise 'Port can\'t be nil' if port.nil?
       raise "Port must be Integer, while #{port.class.name} is provided" unless port.is_a?(Integer)
@@ -55,7 +55,7 @@ module Zold
       raise "Port must be positive integer, while #{port} is provided" unless port.positive?
       @port = port
       raise 'Invoice can\'t be nil' if invoice.nil?
-      raise "Invoice \"#{invoice}\" is wrong" unless /^[a-zA-Z0-9]{8,32}@[a-f0-9]{16}$/.match?(invoice)
+      raise "Invoice \"#{invoice}\" is wrong" unless /\A[a-zA-Z0-9]{8,32}@[a-f0-9]{16}\z/.match?(invoice)
       @invoice = invoice
       raise 'Suffixes can\'t be nil' if suffixes.nil?
       raise 'Suffixes are not an array' unless suffixes.is_a?(Array)
